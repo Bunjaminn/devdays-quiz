@@ -3,598 +3,584 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cosmic Conundrum</title>
+  <title>Celestial Quest</title>
   <style>
-    :root {
-      --bg1: #050816;
-      --bg2: #0d1635;
-      --bg3: #1a2757;
-      --panel: rgba(11, 18, 42, 0.82);
-      --panel-border: rgba(147, 197, 253, 0.35);
-      --text: #edf6ff;
-      --muted: #b7c8eb;
-      --primary: #8ae4ff;
-      --secondary: #8b5cf6;
-      --success: #34d399;
-      --success-soft: rgba(52, 211, 153, 0.2);
-      --danger: #f87171;
-      --danger-soft: rgba(248, 113, 113, 0.18);
-      --warning: #fbbf24;
-      --shadow: 0 20px 60px rgba(9, 10, 25, 0.65);
-      --radius: 24px;
+    :root{
+      --bg-deep: #060b1d;
+      --bg-mid: #0d1639;
+      --bg-glow: #1a284d;
+      --panel: rgba(10, 16, 35, 0.72);
+      --panel-strong: rgba(19, 28, 52, 0.9);
+      --line: rgba(255,255,255,0.12);
+      --text: #edf5ff;
+      --muted: #bfd2f7;
+      --cyan: #89f0ff;
+      --purple: #a78bfa;
+      --pink: #ff9be4;
+      --gold: #ffd77a;
+      --green: #52f2b1;
+      --red: #ff7d7d;
+      --shadow: 0 30px 70px rgba(6, 11, 29, 0.75);
     }
 
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
+    *{ box-sizing:border-box; }
+    html,body{
+      margin:0;
+      min-height:100%;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at 20% 20%, rgba(141, 92, 246, 0.24), transparent 25%),
-        radial-gradient(circle at 80% 30%, rgba(28, 180, 255, 0.22), transparent 22%),
-        linear-gradient(160deg, var(--bg1), var(--bg2) 48%, var(--bg3));
-      color: var(--text);
-      overflow-x: hidden;
+        radial-gradient(circle at 15% 20%, rgba(167,139,250,0.28), transparent 20%),
+        radial-gradient(circle at 80% 15%, rgba(137,240,255,0.3), transparent 18%),
+        radial-gradient(circle at 50% 70%, rgba(255,155,228,0.16), transparent 22%),
+        linear-gradient(145deg, var(--bg-deep), var(--bg-mid) 40%, var(--bg-glow) 100%);
+      overflow-x:hidden;
     }
 
-    body {
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      padding: 24px;
-      position: relative;
+    body{
+      display:grid;
+      place-items:center;
+      padding:28px;
+      position:relative;
     }
 
-    .stars, .stars::before, .stars::after {
-      content: "";
-      position: fixed;
-      inset: -10%;
-      background-image:
-        radial-gradient(2px 2px at 15% 20%, #fff, transparent 100%),
-        radial-gradient(1.5px 1.5px at 35% 80%, #cce7ff, transparent 100%),
-        radial-gradient(2.5px 2.5px at 55% 30%, #dfeaff, transparent 100%),
-        radial-gradient(1.5px 1.5px at 75% 45%, #fff, transparent 100%),
-        radial-gradient(2px 2px at 90% 65%, #dfe9ff, transparent 100%),
-        radial-gradient(2.5px 2.5px at 25% 70%, #f9fbff, transparent 100%),
-        radial-gradient(1.5px 1.5px at 60% 90%, #f8fbff, transparent 100%),
-        radial-gradient(2px 2px at 80% 15%, #e2ebff, transparent 100%);
-      background-repeat: repeat;
-      background-size: 340px 340px;
-      opacity: 0.9;
-      animation: twinkle 10s linear infinite alternate;
-      pointer-events: none;
+    .starfield,
+    .starfield::before,
+    .starfield::after{
+      content:"";
+      position:fixed;
+      inset:-12%;
+      background:
+        radial-gradient(2px 2px at 10% 14%, rgba(255,255,255,0.95), transparent 100%),
+        radial-gradient(2px 2px at 22% 38%, rgba(255,255,255,0.8), transparent 100%),
+        radial-gradient(2px 2px at 35% 20%, rgba(255,255,255,0.9), transparent 100%),
+        radial-gradient(2.4px 2.4px at 48% 72%, rgba(255,255,255,0.85), transparent 100%),
+        radial-gradient(1.9px 1.9px at 64% 26%, rgba(255,255,255,0.95), transparent 100%),
+        radial-gradient(2.1px 2.1px at 76% 48%, rgba(255,255,255,0.88), transparent 100%),
+        radial-gradient(2.6px 2.6px at 88% 16%, rgba(255,255,255,0.95), transparent 100%),
+        radial-gradient(2.2px 2.2px at 92% 62%, rgba(255,255,255,0.9), transparent 100%),
+        radial-gradient(2px 2px at 58% 85%, rgba(255,255,255,0.85), transparent 100%),
+        radial-gradient(2px 2px at 18% 82%, rgba(255,255,255,0.85), transparent 100%);
+      background-repeat:repeat;
+      background-size:360px 360px;
+      opacity:0.9;
+      pointer-events:none;
+      animation: drift 15s ease-in-out infinite alternate;
+    }
+    .starfield::before{
+      transform: scale(1.25);
+      opacity:0.55;
+      animation-duration:19s;
+    }
+    .starfield::after{
+      transform: scale(1.45);
+      opacity:0.4;
+      animation-duration:23s;
+    }
+    @keyframes drift{
+      0%{ transform: translate3d(0,0,0); }
+      100%{ transform: translate3d(-10px, 14px, 0); }
     }
 
-    .stars::before {
-      transform: scale(1.2);
-      opacity: 0.6;
-      animation-duration: 14s;
+    .orb{
+      position:fixed;
+      border-radius:50%;
+      pointer-events:none;
+      filter:blur(60px);
+      opacity:0.8;
+    }
+    .orb.a{
+      width:350px; height:350px;
+      left:6%; top:10%;
+      background: rgba(137,240,255,0.2);
+    }
+    .orb.b{
+      width:420px; height:420px;
+      right:10%; bottom:8%;
+      background: rgba(167,139,250,0.18);
+    }
+    .orb.c{
+      width:260px; height:260px;
+      right:26%; top:34%;
+      background: rgba(255,155,228,0.12);
     }
 
-    .stars::after {
-      transform: scale(1.5);
-      opacity: 0.4;
-      animation-duration: 18s;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.35; }
-      50% { opacity: 0.9; }
-      100% { opacity: 0.6; }
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(50px);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .orb.one {
-      width: 320px; height: 320px;
-      background: rgba(88, 127, 255, 0.52);
-      top: 8%;
-      left: 12%;
-    }
-
-    .orb.two {
-      width: 420px; height: 420px;
-      background: rgba(144, 88, 255, 0.4);
-      bottom: 8%;
-      right: 10%;
-    }
-
-    .orb.three {
-      width: 260px; height: 260px;
-      background: rgba(38, 197, 255, 0.28);
-      top: 35%;
-      right: 20%;
-    }
-
-    .quiz-shell {
-      position: relative;
-      width: min(100%, 900px);
-      background: rgba(7, 11, 25, 0.55);
-      border: 1px solid var(--panel-border);
+    .app{
+      width:min(940px,100%);
+      position:relative;
+      z-index:2;
+      border-radius:32px;
+      background: rgba(10, 16, 35, 0.7);
+      border:1px solid var(--line);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      border-radius: 30px;
-      overflow: hidden;
-      z-index: 1;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow:hidden;
     }
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 26px 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 28px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      border-bottom:1px solid rgba(255,255,255,0.06);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--primary);
-      font-size: 0.76rem;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      font-size:0.72rem;
+      color: var(--cyan);
+      font-weight:800;
     }
 
-    .planet {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #fff, var(--primary));
-      box-shadow: 0 0 20px rgba(138, 228, 255, 0.9);
+    .brand-dot{
+      width:14px; height:14px;
+      border-radius:50%;
+      background: linear-gradient(135deg, #fff, var(--cyan));
+      box-shadow: 0 0 18px rgba(137,240,255,0.9);
     }
 
-    .score-badge {
-      background: rgba(139, 92, 246, 0.18);
-      border: 1px solid rgba(155, 135, 255, 0.4);
-      color: #efe9ff;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.72rem;
+    .score-pill{
+      border-radius:999px;
+      padding:10px 16px;
+      background: rgba(167,139,250,0.14);
+      border:1px solid rgba(167,139,250,0.4);
+      color:#f5eeff;
+      font-size:0.72rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-weight:800;
     }
 
-    .screen {
-      display: none;
-      padding: 34px 28px 28px;
+    .screen{
+      display:none;
+      padding:30px 28px 28px;
+    }
+    .screen.active{
+      display:block;
     }
 
-    .screen.active { display: block; }
-
-    .intro {
-      min-height: 520px;
-      display: grid;
-      place-items: center;
+    .intro{
+      min-height:560px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:40px 18px 28px;
     }
 
-    .intro-card {
-      width: min(100%, 720px);
-      text-align: center;
-      padding: 18px 16px 8px;
+    .intro-card{
+      width:min(760px, 100%);
+      padding:8px 8px 16px;
     }
 
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--primary);
-      background: rgba(138, 228, 255, 0.07);
-      border: 1px solid rgba(138, 228, 255, 0.18);
-      padding: 10px 14px;
-      border-radius: 999px;
-      margin-bottom: 16px;
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(137,240,255,0.3);
+      background: rgba(137,240,255,0.08);
+      color: var(--cyan);
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      font-size:0.68rem;
+      font-weight:800;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      text-shadow: 0 0 22px rgba(138, 228, 255, 0.35);
+    h1{
+      margin:22px 0 14px;
+      font-size:clamp(2.8rem, 7vw, 5.8rem);
+      line-height:0.92;
+      letter-spacing:-0.08em;
+      text-shadow: 0 0 26px rgba(137,240,255,0.28);
     }
 
-    .subtitle {
-      max-width: 640px;
-      margin: 18px auto 26px;
+    .subtitle{
+      max-width:620px;
+      margin:0 auto 26px;
+      font-size:1.06rem;
+      line-height:1.7;
       color: var(--muted);
-      font-size: 1.06rem;
-      line-height: 1.7;
     }
 
-    .mission-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(150px, 1fr));
-      gap: 14px;
-      margin: 20px auto 28px;
-      max-width: 660px;
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(160px, 1fr));
+      gap:14px;
+      max-width:680px;
+      margin:0 auto 28px;
     }
 
-    .stat {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 18px;
-      padding: 18px 14px;
-      text-align: center;
+    .stat{
+      background: rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:18px;
+      padding:18px 10px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
     }
 
-    .stat strong {
-      display: block;
-      font-size: 1.2rem;
-      color: var(--primary);
-      margin-bottom: 6px;
+    .stat strong{
+      display:block;
+      color: var(--cyan);
+      font-size:1.2rem;
+      margin-bottom:6px;
     }
 
-    .stat span {
+    .stat span{
+      font-size:0.8rem;
       color: var(--muted);
-      font-size: 0.86rem;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
     }
 
-    .cta-row {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
+    .cta{
+      display:flex;
+      justify-content:center;
+      margin-top:8px;
     }
 
-    button {
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      font: inherit;
+    button{
+      border:none;
+      cursor:pointer;
+      font:inherit;
     }
 
-    .primary-btn, .secondary-btn {
-      padding: 16px 28px;
-      border-radius: 999px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    .primary-btn,
+    .secondary-btn{
+      border-radius:999px;
+      padding:17px 28px;
+      font-weight:800;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
-    .primary-btn {
-      background: linear-gradient(135deg, var(--primary), #65d7ff 30%, #8b5cf6);
-      color: #06121c;
-      box-shadow: 0 12px 32px rgba(92, 184, 255, 0.5);
+    .primary-btn{
+      color:#06121d;
+      background: linear-gradient(135deg, var(--cyan), #7fe2ff 28%, var(--purple));
+      box-shadow: 0 18px 40px rgba(109, 166, 255, 0.44);
     }
 
-    .secondary-btn {
-      background: rgba(255,255,255,0.08);
+    .secondary-btn{
       color: var(--text);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
     }
 
-    .primary-btn:hover, .secondary-btn:hover {
-      transform: translateY(-1px) scale(1.01);
+    .primary-btn:hover,
+    .secondary-btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.04);
     }
 
-    .quiz-panel { position: relative; }
+    .quiz-panel{
+      padding-top:18px;
+    }
 
-    .topbar {
-      display: grid;
+    .top-panel{
+      display:grid;
       grid-template-columns: 1fr auto;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 18px;
+      gap:14px;
+      align-items:center;
+      margin-bottom:18px;
     }
 
-    .progress-track {
-      height: 12px;
-      border-radius: 999px;
+    .progress-track{
+      position:relative;
+      height:12px;
+      border-radius:999px;
       background: rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.08);
+      overflow:hidden;
     }
-
-    .progress-fill {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 0%;
-      background: linear-gradient(90deg, var(--primary), #7dd3fc, #8b5cf6);
-      border-radius: inherit;
-      box-shadow: 0 0 18px rgba(138, 228, 255, 0.8);
+    .progress-fill{
+      position:absolute;
+      inset:0 auto 0 0;
+      width:0%;
+      border-radius:inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+      box-shadow: 0 0 18px rgba(137,240,255,0.7);
       transition: width 0.35s ease;
     }
 
-    .meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:0.72rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
       color: var(--muted);
-      font-size: 0.83rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
     }
 
-    .timer-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px;
-      height: 36px;
-      border-radius: 999px;
-      background: rgba(251, 191, 36, 0.14);
-      border: 1px solid rgba(251,191,36,0.3);
-      color: var(--warning);
-      font-weight: 800;
+    .timer{
+      min-width:68px;
+      text-align:center;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,215,122,0.12);
+      border:1px solid rgba(255,215,122,0.28);
+      color: var(--gold);
+      font-weight:800;
     }
 
-    .question-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 26px 24px 18px;
-      min-height: 400px;
-      position: relative;
-      overflow: hidden;
+    .question-card{
+      position:relative;
+      background: rgba(255,255,255,0.025);
+      border:1px solid rgba(255,255,255,0.09);
+      border-radius:26px;
+      padding:26px 22px 18px;
+      overflow:hidden;
+    }
+    .question-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at top right, rgba(167,139,250,0.18), transparent 22%);
+      pointer-events:none;
     }
 
-    .question-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(139,92,246,0.15), transparent 25%);
-      pointer-events: none;
+    .category{
+      position:relative;
+      z-index:1;
+      display:inline-block;
+      border-radius:999px;
+      padding:8px 12px;
+      border:1px solid rgba(137,240,255,0.25);
+      background: rgba(137,240,255,0.08);
+      color: var(--cyan);
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      font-size:0.68rem;
+      font-weight:800;
+      margin-bottom:18px;
     }
 
-    .category-pill {
-      display: inline-block;
-      color: var(--primary);
-      background: rgba(138,228,255,0.08);
-      border: 1px solid rgba(138,228,255,0.18);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
+    .question{
+      position:relative;
+      z-index:1;
+      margin:0 0 24px;
+      font-size:clamp(1.6rem, 3vw, 2.5rem);
+      line-height:1.3;
+      letter-spacing:-0.05em;
     }
 
-    .question {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 24px;
-      font-size: clamp(1.5rem, 3vw, 2.3rem);
-      line-height: 1.3;
-      letter-spacing: -0.04em;
+    .choices{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(230px, 1fr));
+      gap:14px;
     }
 
-    .choices {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 8px;
-    }
-
-    .choice {
-      width: 100%;
-      text-align: left;
-      padding: 18px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(13, 21, 43, 0.85);
+    .option{
+      width:100%;
+      padding:18px 18px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(16, 26, 49, 0.9);
       color: var(--text);
-      font-weight: 700;
-      font-size: 1rem;
-      transition: 0.2s ease;
-      position: relative;
-      overflow: hidden;
+      text-align:left;
+      font-weight:700;
+      font-size:1rem;
+      transition:0.2s ease;
+      position:relative;
+      overflow:hidden;
     }
 
-    .choice:hover:not(.locked) {
-      border-color: rgba(138, 228, 255, 0.45);
+    .option:hover:not(.locked){
       transform: translateY(-1px);
-      background: rgba(19, 31, 58, 0.9);
+      border-color: rgba(137,240,255,0.45);
+      background: rgba(19, 32, 64, 0.95);
     }
 
-    .choice.correct {
-      background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(16, 185, 129, 0.12));
-      border-color: rgba(52,211,153,0.7);
-      box-shadow: inset 0 0 0 1px rgba(52,211,153,0.35);
+    .option.correct{
+      background: linear-gradient(135deg, rgba(82,242,177,0.2), rgba(30,179,109,0.1));
+      border-color: rgba(82,242,177,0.7);
+      box-shadow: inset 0 0 0 1px rgba(82,242,177,0.35);
     }
 
-    .choice.wrong {
-      background: linear-gradient(135deg, rgba(248,113,113,0.18), rgba(239,68,68,0.1));
-      border-color: rgba(248,113,113,0.7);
-      box-shadow: inset 0 0 0 1px rgba(248,113,113,0.32);
+    .option.wrong{
+      background: linear-gradient(135deg, rgba(255,125,125,0.18), rgba(201,69,69,0.08));
+      border-color: rgba(255,125,125,0.7);
+      box-shadow: inset 0 0 0 1px rgba(255,125,125,0.28);
     }
 
-    .choice.locked {
-      opacity: 0.94;
-      pointer-events: none;
+    .option.locked{
+      opacity:0.96;
+      pointer-events:none;
     }
 
-    .choice:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
-    }
-
-    .feedback {
-      position: relative;
-      z-index: 1;
-      min-height: 52px;
-      margin-top: 16px;
-      font-weight: 700;
-      font-size: 1.04rem;
+    .feedback{
+      position:relative;
+      z-index:1;
+      min-height:54px;
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.025);
+      padding:12px 14px;
       color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      border-radius: 14px;
-      padding: 12px 8px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
+      font-weight:700;
     }
 
-    .feedback.success {
-      background: var(--success-soft);
-      border-color: rgba(52,211,153,0.3);
-      color: #d7ffee;
+    .feedback.success{
+      background: rgba(82,242,177,0.14);
+      border-color: rgba(82,242,177,0.38);
+      color:#dffef6;
     }
 
-    .feedback.fail {
-      background: var(--danger-soft);
-      border-color: rgba(248,113,113,0.25);
-      color: #ffe5e5;
+    .feedback.fail{
+      background: rgba(255,125,125,0.1);
+      border-color: rgba(255,125,125,0.25);
+      color:#ffe9e9;
     }
 
-    .summary {
-      min-height: 520px;
-      display: grid;
-      place-items: center;
+    .summary{
+      min-height:560px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:30px 16px 28px;
     }
 
-    .summary-box {
-      width: min(100%, 680px);
-      text-align: center;
-      padding: 18px 16px 10px;
+    .summary-box{
+      width:min(700px,100%);
     }
 
-    .summary-rank {
-      font-size: 3.6rem;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 0 20px rgba(251,191,36,0.35));
+    .summary-rank{
+      font-size:3.8rem;
+      margin-bottom:10px;
+      filter: drop-shadow(0 0 20px rgba(255,215,122,0.35));
     }
 
-    .summary-title {
-      margin: 0;
-      font-size: clamp(2.2rem, 5vw, 3.7rem);
-      letter-spacing: -0.06em;
+    .summary-title{
+      margin:0 0 12px;
+      font-size:clamp(2.5rem, 5vw, 4rem);
+      letter-spacing:-0.07em;
     }
 
-    .summary-score {
-      font-size: clamp(2.3rem, 5vw, 4rem);
-      margin: 16px 0 8px;
-      font-weight: 900;
-      color: var(--primary);
-      letter-spacing: -0.04em;
+    .summary-score{
+      color: var(--cyan);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight:900;
+      letter-spacing:-0.05em;
+      margin-bottom:12px;
     }
 
-    .summary-text {
+    .summary-text{
+      max-width:560px;
+      margin:0 auto 26px;
       color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.7;
-      max-width: 540px;
-      margin: 0 auto 24px;
+      font-size:1.04rem;
+      line-height:1.7;
     }
 
-    .summary-actions {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
+    .summary-actions{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
     }
 
-    .hidden { display: none !important; }
-
-    @media (max-width: 760px) {
-      .mission-grid,
-      .choices {
-        grid-template-columns: 1fr;
+    @media (max-width:760px){
+      .stats,
+      .choices{
+        grid-template-columns:1fr;
       }
 
-      .header {
-        padding: 18px 18px 14px;
+      .topbar{
+        grid-template-columns:1fr;
       }
 
-      .screen {
-        padding: 24px 18px 22px;
+      .meta{
+        justify-content:space-between;
       }
 
-      .question-box {
-        min-height: 380px;
+      .screen{
+        padding-left:18px;
+        padding-right:18px;
       }
 
-      .brand {
-        letter-spacing: 0.09em;
-        font-size: 0.64rem;
-      }
-
-      .score-badge {
-        font-size: 0.64rem;
-        padding: 9px 12px;
+      .topbar{
+        padding-left:18px;
+        padding-right:18px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="stars" aria-hidden="true"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
+  <div class="starfield" aria-hidden="true"></div>
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+  <div class="orb c"></div>
 
-  <main class="quiz-shell">
-    <header class="header">
+  <main class="app">
+    <header class="topbar">
       <div class="brand">
-        <span class="planet"></span>
-        <span>Cosmic Quiz</span>
+        <span class="brand-dot"></span>
+        <span>Celestial Quest</span>
       </div>
-      <div class="score-badge">Score: <span id="totalScore">0</span></div>
+      <div class="score-pill">Score: <span id="scoreValue">0</span></div>
     </header>
 
     <section id="introScreen" class="screen intro active">
       <div class="intro-card">
-        <div class="eyebrow">Mission briefing</div>
-        <h1>Cosmic Conundrum</h1>
+        <div class="badge">Mission Briefing</div>
+        <h1>Cosmic<br>Conundrum</h1>
         <p class="subtitle">
-          Orbiting through planets, stars, and deep-space mysteries. Test your knowledge and prove you’re ready for the next galaxy mission.
+          Journey through the galaxy, answer stellar questions, and prove you’re ready for the next interstellar adventure.
         </p>
 
-        <div class="mission-grid">
+        <div class="stats">
           <div class="stat">
             <strong>8</strong>
-            <span>space facts</span>
+            <span>Questions</span>
           </div>
           <div class="stat">
             <strong>15s</strong>
-            <span>per round</span>
+            <span>Per Round</span>
           </div>
           <div class="stat">
             <strong>★</strong>
-            <span>galaxy rank</span>
+            <span>Rank</span>
           </div>
         </div>
 
-        <div class="cta-row">
+        <div class="cta">
           <button id="startBtn" class="primary-btn">Launch Quiz</button>
         </div>
       </div>
     </section>
 
     <section id="quizScreen" class="screen quiz-panel">
-      <div class="topbar">
+      <div class="top-panel">
         <div class="progress-track">
           <div id="progressFill" class="progress-fill"></div>
         </div>
+
         <div class="meta">
           <span id="questionCounter">1 / 8</span>
-          <span id="timerBadge" class="timer-badge">15s</span>
+          <span id="timer" class="timer">15s</span>
         </div>
       </div>
 
-      <div class="question-box">
-        <div id="categoryPill" class="category-pill">Space</div>
-        <h2 id="questionText" class="question">Loading question…</h2>
+      <div class="question-card">
+        <div id="category" class="category">Space</div>
+        <h2 id="questionText" class="question">Loading question...</h2>
 
-        <div id="choices" class="choices" aria-live="polite"></div>
-        <div id="feedback" class="feedback">Ready to explore the cosmos?</div>
+        <div id="choices" class="choices"></div>
+        <div id="feedback" class="feedback">Choose the best answer before time runs out.</div>
       </div>
     </section>
 
@@ -603,7 +589,9 @@
         <div id="summaryRank" class="summary-rank">🚀</div>
         <h2 id="summaryTitle" class="summary-title">Mission Complete</h2>
         <div id="summaryScore" class="summary-score">0 / 80</div>
-        <p id="summaryText" class="summary-text">You’ve completed your space mission. Try again to reach a higher orbit.</p>
+        <p id="summaryText" class="summary-text">
+          You’ve completed your cosmic mission. Ready for another launch?
+        </p>
 
         <div class="summary-actions">
           <button id="retryBtn" class="primary-btn">Play Again</button>
@@ -635,18 +623,18 @@
       },
       {
         category: "Solar System",
-        question: "Which planet has the most famous rings?",
+        question: "Which planet is famous for its rings?",
         options: ["Mars", "Neptune", "Saturn", "Earth"],
         answer: "Saturn"
       },
       {
         category: "Space Travel",
-        question: "What is the name of the first human to walk on the Moon?",
-        options: ["Neil Armstrong", "Yuri Gagarin", "Buzz Aldrin", "John Glenn"],
+        question: "Who was the first human to walk on the Moon?",
+        options: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "John Glenn"],
         answer: "Neil Armstrong"
       },
       {
-        category: "Sun",
+        category: "The Sun",
         question: "What is the Sun primarily made of?",
         options: ["Rock and metal", "Liquid water", "Hydrogen and helium", "Molten lava"],
         answer: "Hydrogen and helium"
@@ -661,33 +649,32 @@
         category: "Deep Space",
         question: "What is a black hole?",
         options: [
-          "A region where light cannot escape due to intense gravity",
+          "A region where light cannot escape because of intense gravity",
           "A giant planet made of dark matter",
           "A star that has exploded into dust",
           "A vacuum-filled moon"
         ],
-        answer: "A region where light cannot escape due to intense gravity"
+        answer: "A region where light cannot escape because of intense gravity"
       }
     ];
 
     const state = {
       currentIndex: 0,
       score: 0,
-      timer: null,
       timeLeft: 15,
-      answered: false,
-      totalQuestions: questions.length
+      timer: null,
+      answered: false
     };
 
     const introScreen = document.getElementById("introScreen");
     const quizScreen = document.getElementById("quizScreen");
     const summaryScreen = document.getElementById("summaryScreen");
 
-    const totalScoreEl = document.getElementById("totalScore");
+    const scoreValue = document.getElementById("scoreValue");
     const progressFill = document.getElementById("progressFill");
     const questionCounter = document.getElementById("questionCounter");
-    const timerBadge = document.getElementById("timerBadge");
-    const categoryPill = document.getElementById("categoryPill");
+    const timerEl = document.getElementById("timer");
+    const categoryEl = document.getElementById("category");
     const questionText = document.getElementById("questionText");
     const choicesEl = document.getElementById("choices");
     const feedbackEl = document.getElementById("feedback");
@@ -697,23 +684,23 @@
     const summaryScore = document.getElementById("summaryScore");
     const summaryText = document.getElementById("summaryText");
 
-    function showScreen(screen) {
+    function showScreen(name) {
       introScreen.classList.remove("active");
       quizScreen.classList.remove("active");
       summaryScreen.classList.remove("active");
 
-      if (screen === "intro") introScreen.classList.add("active");
-      if (screen === "quiz") quizScreen.classList.add("active");
-      if (screen === "summary") summaryScreen.classList.add("active");
+      if (name === "intro") introScreen.classList.add("active");
+      if (name === "quiz") quizScreen.classList.add("active");
+      if (name === "summary") summaryScreen.classList.add("active");
     }
 
     function resetState() {
       state.currentIndex = 0;
       state.score = 0;
-      state.answered = false;
       state.timeLeft = 15;
+      state.answered = false;
       clearInterval(state.timer);
-      totalScoreEl.textContent = state.score;
+      scoreValue.textContent = state.score;
     }
 
     function startQuiz() {
@@ -731,32 +718,30 @@
       clearInterval(state.timer);
       state.answered = false;
       state.timeLeft = 15;
-      timerBadge.textContent = `${state.timeLeft}s`;
-      timerBadge.style.color = "#fbbf24";
-      timerBadge.style.borderColor = "rgba(251,191,36,0.3)";
-      timerBadge.style.background = "rgba(251,191,36,0.14)";
+      timerEl.textContent = `${state.timeLeft}s`;
+      timerEl.style.background = "rgba(255,215,122,0.12)";
+      timerEl.style.borderColor = "rgba(255,215,122,0.28)";
+      timerEl.style.color = "var(--gold)";
 
       const q = questions[state.currentIndex];
-      categoryPill.textContent = q.category;
-      questionText.textContent = q.question;
-      questionCounter.textContent = `${state.currentIndex + 1} / ${questions.length}`;
-
       const progress = (state.currentIndex / questions.length) * 100;
       progressFill.style.width = `${progress}%`;
 
+      categoryEl.textContent = q.category;
+      questionText.textContent = q.question;
+      questionCounter.textContent = `${state.currentIndex + 1} / ${questions.length}`;
       choicesEl.innerHTML = "";
 
       q.options.forEach((option) => {
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "choice";
+        btn.className = "option";
         btn.textContent = option;
-        btn.setAttribute("aria-label", `Answer: ${option}`);
         btn.addEventListener("click", () => handleAnswer(option));
         choicesEl.appendChild(btn);
       });
 
-      feedbackEl.textContent = "Choose the best answer before time runs out!";
+      feedbackEl.textContent = "Choose the best answer before time runs out.";
       feedbackEl.className = "feedback";
 
       startTimer();
@@ -767,87 +752,84 @@
 
       state.timer = setInterval(() => {
         state.timeLeft -= 1;
-        timerBadge.textContent = `${state.timeLeft}s`;
+        timerEl.textContent = `${state.timeLeft}s`;
 
         if (state.timeLeft <= 5) {
-          timerBadge.style.color = "#fca5a5";
-          timerBadge.style.background = "rgba(248,113,113,0.14)";
-          timerBadge.style.borderColor = "rgba(248,113,113,0.3)";
+          timerEl.style.background = "rgba(255,125,125,0.12)";
+          timerEl.style.borderColor = "rgba(255,125,125,0.28)";
+          timerEl.style.color = "#ffb1b1";
         } else {
-          timerBadge.style.color = "#fbbf24";
-          timerBadge.style.background = "rgba(251,191,36,0.14)";
-          timerBadge.style.borderColor = "rgba(251,191,36,0.3)";
+          timerEl.style.background = "rgba(255,215,122,0.12)";
+          timerEl.style.borderColor = "rgba(255,215,122,0.28)";
+          timerEl.style.color = "var(--gold)";
         }
 
         if (state.timeLeft <= 0) {
           clearInterval(state.timer);
           if (!state.answered) {
-            handleTimedOut();
+            handleTimeout();
           }
         }
       }, 1000);
     }
 
-    function handleAnswer(selectedOption) {
+    function handleAnswer(selected) {
       if (state.answered) return;
       state.answered = true;
       clearInterval(state.timer);
 
       const q = questions[state.currentIndex];
-      const buttons = [...choicesEl.children];
+      const options = [...choicesEl.children];
 
-      buttons.forEach((button) => {
-        button.classList.add("locked");
-        const optionText = button.textContent;
+      options.forEach((optionEl) => {
+        optionEl.classList.add("locked");
 
-        if (optionText === q.answer) {
-          button.classList.add("correct");
+        if (optionEl.textContent === q.answer) {
+          optionEl.classList.add("correct");
         }
 
-        if (optionText === selectedOption && optionText !== q.answer) {
-          button.classList.add("wrong");
+        if (optionEl.textContent === selected && optionEl.textContent !== q.answer) {
+          optionEl.classList.add("wrong");
         }
       });
 
-      if (selectedOption === q.answer) {
+      if (selected === q.answer) {
         state.score += 10;
-        totalScoreEl.textContent = state.score;
-        feedbackEl.textContent = "Correct! Stellar work.";
+        scoreValue.textContent = state.score;
+        feedbackEl.textContent = "Correct! Stellar answer.";
         feedbackEl.classList.add("success");
       } else {
-        feedbackEl.textContent = `Not quite. The correct answer is: ${q.answer}`;
+        feedbackEl.textContent = `Not quite — the right answer is: ${q.answer}`;
         feedbackEl.classList.add("fail");
       }
 
       setTimeout(() => {
         state.currentIndex += 1;
-        const nextProgress = (state.currentIndex / questions.length) * 100;
-        progressFill.style.width = `${nextProgress}%`;
         renderQuestion();
-      }, 1100);
+      }, 1200);
     }
 
-    function handleTimedOut() {
+    function handleTimeout() {
       state.answered = true;
       clearInterval(state.timer);
 
       const q = questions[state.currentIndex];
-      const buttons = [...choicesEl.children];
+      const options = [...choicesEl.children];
 
-      buttons.forEach((button) => {
-        button.classList.add("locked");
-        if (button.textContent === q.answer) {
-          button.classList.add("correct");
+      options.forEach((optionEl) => {
+        optionEl.classList.add("locked");
+        if (optionEl.textContent === q.answer) {
+          optionEl.classList.add("correct");
         }
       });
 
-      feedbackEl.textContent = `Time's up! The correct answer is: ${q.answer}`;
+      feedbackEl.textContent = `Time’s up! Correct answer: ${q.answer}`;
       feedbackEl.classList.add("fail");
 
       setTimeout(() => {
         state.currentIndex += 1;
         renderQuestion();
-      }, 1100);
+      }, 1200);
     }
 
     function finishQuiz() {
@@ -861,19 +843,19 @@
       if (percent >= 90) {
         summaryRank.textContent = "🏆";
         summaryTitle.textContent = "Galaxy Master";
-        summaryText.textContent = "Elite orbit achieved. Your star knowledge is out of this world.";
+        summaryText.textContent = "Outstanding! You navigated the cosmos with elite precision.";
       } else if (percent >= 70) {
         summaryRank.textContent = "🌟";
         summaryTitle.textContent = "Mission Success";
-        summaryText.textContent = "Excellent work. You’ve earned a strong cosmic reputation.";
+        summaryText.textContent = "Excellent work. Your cosmic knowledge is shining bright.";
       } else if (percent >= 50) {
         summaryRank.textContent = "🚀";
         summaryTitle.textContent = "Space Explorer";
-        summaryText.textContent = "Nice run. A few more missions and you’ll be a true astronaut scholar.";
+        summaryText.textContent = "Great run. A few more missions and you’ll be orbiting legends.";
       } else {
         summaryRank.textContent = "🪐";
         summaryTitle.textContent = "New Recruit";
-        summaryText.textContent = "Every great astronaut starts somewhere. Launch again and aim higher.";
+        summaryText.textContent = "Every star explorer starts somewhere. Try again and shoot for the stars.";
       }
 
       showScreen("summary");
